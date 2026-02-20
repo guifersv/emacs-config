@@ -17,6 +17,7 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 (setq visible-bell nil)
+(setq auto-save-default nil)
 (setq scroll-conservatively 100)
 (setq frame-inhibit-implied-resize t)
 (setq backup-directory-alist `(("." . "~/.emacs.d/backups")))
@@ -25,6 +26,8 @@
 (setq tab-width 4)
 (setq standard-indent 4)
 (setq use-short-answers t)
+; (setq lsp-completion-provider :none)
+; (setq lsp-headerline-breadcrumb-enable nil)
 
 (menu-bar-mode 0)
 (show-paren-mode 1)
@@ -55,8 +58,8 @@
 (use-package default-text-scale
   :bind
   (("C-)" . default-text-scale-reset)
-   ("C-=" . default-text-scale-increase)
-   ("C--" . default-text-scale-decrease)))
+   ("C-M-+" . default-text-scale-increase)
+   ("C-M-=" . default-text-scale-decrease)))
 
 (defun +kill-current-buffer ()
   "Kill the current buffer without prompting."
