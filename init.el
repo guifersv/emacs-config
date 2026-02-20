@@ -14,7 +14,7 @@
 (setq byte-compile-warnings '(cl-functions))
 (setq warning-minimum-level :emergency)
 
-(setq custom-file "./custom.el")
+(setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 (setq visible-bell nil)
 (setq scroll-conservatively 100)
@@ -23,7 +23,7 @@
 (setq inhibit-startup-message t)
 (setq indent-tabs-mode nil)
 (setq tab-width 4)
-(setq display-line-numbers-type 'relative)
+(setq standard-indent 4)
 (setq use-short-answers t)
 
 (menu-bar-mode 0)
@@ -33,6 +33,8 @@
 (global-hl-line-mode 1)
 (pixel-scroll-precision-mode 1)
 (set-window-scroll-bars (minibuffer-window) nil nil)
+(electric-indent-mode 1)
+(delete-selection-mode 1)
 (global-display-line-numbers-mode)
 
 (defvar +font-size-fixed 100)
