@@ -20,3 +20,6 @@ backups/
 auto-save-list/
 eln-cache/
 elpa/
+.cache/
+.lsp*
+projectile*
