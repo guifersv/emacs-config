@@ -69,6 +69,35 @@
 
 (global-set-key (kbd "C-x k") #'+kill-current-buffer)
 
+; (defun my/run-zig (cmd)
+;   (interactive)
+;   (split-window-below)
+;   (other-window 1)
+;   (ansi-term "/bin/zsh")
+;   (term-send-raw-string (concat cmd "\n")))
+;
+; (defun my/zig-run ()
+;   (interactive)
+;   (my/run-zig "zig build run"))
+;
+; (defun my/zig-test ()
+;   (interactive)
+;   (my/run-zig "zig build test"))
+;
+; (global-set-key (kbd "C-c z r") #'my/zig-run)
+; (global-set-key (kbd "C-c z t") #'my/zig-test)
+
+(defun my/zig-run ()
+  (interactive)
+  (compile "zig build run"))
+
+(defun my/zig-test ()
+  (interactive)
+  (compile "zig build test"))
+
+(global-set-key (kbd "C-c z r") #'my/zig-run)
+(global-set-key (kbd "C-c z t") #'my/zig-test)
+
 (let ((pkg-file (expand-file-name "packages.el" user-emacs-directory)))
   (when (file-exists-p pkg-file)
     (load pkg-file)))
