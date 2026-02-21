@@ -1,60 +1,65 @@
 (use-package kanagawa-themes
-  :init
+  :config
   (load-theme 'kanagawa-wave t))
 
 (use-package ace-window
-  :bind
-  ("M-o" . ace-window))
+  :bind ("M-o" . ace-window))
 
 (use-package avy
-  :bind
-  ("C-;" . avy-goto-line)
-  ("C-'" . avy-goto-char))
-
-(use-package orderless
-  :init
-  (setq completion-styles '(orderless basic)
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
+  :bind (("C-;" . avy-goto-line)
+         ("C-'" . avy-goto-char)))
 
 (use-package vertico
   :init
   (vertico-mode))
 
+(use-package savehist
+  :init
+  (savehist-mode))
+
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides
+        '((file (styles partial-completion)))))
+
+(use-package corfu
+  :init
+  (global-corfu-mode)
+  :config
+  (setq corfu-auto t
+        corfu-cycle t))
+
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
-
-(use-package zig-mode
-  :hook (zig-mode . lsp-deferred))
 
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-c l")
-  :hook (
-         (zig-mode . lsp-deferred)
-  :commands lsp lsp-deferred)
+  :hook ((zig-mode . lsp-deferred))
+  :commands (lsp lsp-deferred)
   :config
-  (setq lsp-headerline-breadcrumb-enable nil)
-  (setq lsp-completion-provider :none))
+  (setq lsp-headerline-breadcrumb-enable nil
+        lsp-completion-provider :none))
 
-(use-package corfu
-  :init
-  (global-corfu-mode))
+(use-package zig-mode
+  :mode "\\.zig\\'"
+  :hook (zig-mode . lsp-deferred))
 
-(use-package flycheck
-  :config
-  (add-hook 'after-init-hook #'global-flycheck-mode))
+;; (use-package flycheck
+;;   :init (global-flycheck-mode))
+;; (setq lsp-diagnostics-provider :flycheck)
 
 (use-package projectile
   :init
   (projectile-mode +1)
   :config
-  (setq projectile-completion-system 'default)
-  (setq projectile-project-search-path '("~/projects/" "~/code/"))
-  (setq projectile-enable-caching t)
-  (setq projectile-cleanup-known-projects nil)
-  :bind
-  ("C-c p" . projectile-command-map))
+  (setq projectile-completion-system 'default
+        projectile-project-search-path '("~/projects/" "~/code/")
+        projectile-enable-caching t
+        projectile-cleanup-known-projects nil)
+  :bind ("C-c p" . projectile-command-map))
 
 (use-package magit
   :bind ("C-x g" . magit-status))
@@ -66,4 +71,11 @@
   :config
   (diff-hl-flydiff-mode)
   (with-eval-after-load 'magit
-  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))
+    (add-hook 'magit-post-refresh-hook
+              #'diff-hl-magit-post-refresh)))
+
+(use-package god-mode
+  :init
+  (global-set-key (kbd "<escape>") #'god-mode-all)
+  :config
+  (setq god-mode-enable-function-key-translation nil))

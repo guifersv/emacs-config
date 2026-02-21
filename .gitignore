@@ -23,3 +23,5 @@ elpa/
 .cache/
 .lsp*
 projectile*
+straight/
+history
