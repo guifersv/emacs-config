@@ -51,3 +51,15 @@
   (setq projectile-cleanup-known-projects nil)
   :bind
   ("C-c p" . projectile-command-map))
+
+(use-package magit
+  :bind ("C-x g" . magit-status))
+
+(use-package diff-hl
+  :hook ((prog-mode . diff-hl-mode)
+         (text-mode . diff-hl-mode)
+         (dired-mode . diff-hl-dired-mode))
+  :config
+  (diff-hl-flydiff-mode)
+  (with-eval-after-load 'magit
+  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)))
