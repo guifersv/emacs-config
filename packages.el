@@ -41,6 +41,10 @@
   :init
   (global-corfu-mode))
 
+(use-package flycheck
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode))
+
 (use-package projectile
   :init
   (projectile-mode +1)
