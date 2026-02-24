@@ -28,8 +28,17 @@
   :init
   (global-corfu-mode)
   :config
-  (setq corfu-auto t
-        corfu-cycle t))
+  (keymap-unset corfu-map "RET")
+  :bind
+  (:map corfu-map
+        ("TAB" . corfu-next)
+        ([tab] . corfu-next)
+        ("S-TAB" . corfu-previous)
+        ([backtab] . corfu-previous))
+  :custom
+  (corfu-preselect 'prompt)
+  (corfu-auto t)
+  (corfu-cycle t))
 
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
@@ -42,6 +51,16 @@
   :config
   (setq lsp-headerline-breadcrumb-enable nil
         lsp-completion-provider :none))
+
+(use-package lsp-ui
+  :after lsp-mode
+  :hook (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-position 'at-point)
+  (lsp-ui-sideline-enable t)
+  (lsp-ui-sideline-show-hover t)
+  (lsp-ui-peek-enable t))
 
 (use-package zig-mode
   :mode "\\.zig\\'"
