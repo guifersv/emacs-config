@@ -1,3 +1,17 @@
+(add-to-list 'exec-path (expand-file-name "~/.local/share/nvim/mason/bin"))
+(setenv "PATH"
+        (concat "~/.local/share/nvim/mason/bin:" (getenv "PATH")))
+
+(defun my-minibuffer-setup-hook ()
+  (setq gc-cons-threshold most-positive-fixnum))
+
+(defun my-minibuffer-exit-hook ()
+  (setq gc-cons-threshold 800000000))
+
+(setq gc-cons-threshold most-positive-fixnum)
+
+(run-with-idle-timer 1.2 t 'garbage-collect)
+
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name
@@ -41,13 +55,13 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(pixel-scroll-precision-mode -1)
 
 (show-paren-mode 1)
 (global-hl-line-mode 1)
-(pixel-scroll-precision-mode 1)
 (electric-indent-mode 1)
 (delete-selection-mode 1)
-(global-display-line-numbers-mode 1)
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 (set-face-attribute 'default nil :family "CaskaydiaCove Nerd Font" :height 100)
 (set-face-attribute 'fixed-pitch nil :family "CaskaydiaCove Nerd Font" :height 100)

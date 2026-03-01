@@ -43,28 +43,32 @@
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
 
-(use-package lsp-mode
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :hook ((zig-mode . lsp-deferred))
-  :commands (lsp lsp-deferred)
+; (use-package lsp-mode
+;   :init
+;   (setq lsp-keymap-prefix "C-c l")
+;   :hook ((zig-mode . lsp-deferred))
+;   :commands (lsp lsp-deferred)
+;   :config
+;   (setq lsp-headerline-breadcrumb-enable nil
+;         lsp-completion-provider :none))
+;
+; (use-package lsp-ui
+;   :after lsp-mode
+;   :hook (lsp-mode . lsp-ui-mode)
+;   :custom
+;   (lsp-ui-doc-enable t)
+;   (lsp-ui-doc-position 'at-point)
+;   (lsp-ui-sideline-enable t)
+;   (lsp-ui-sideline-show-hover t)
+;   (lsp-ui-peek-enable t))
+
+(use-package eglot
+  :straight t
+  :hook ((zig-mode . eglot-ensure))
   :config
-  (setq lsp-headerline-breadcrumb-enable nil
-        lsp-completion-provider :none))
+  (setq eglot-autoshutdown t))
 
-(use-package lsp-ui
-  :after lsp-mode
-  :hook (lsp-mode . lsp-ui-mode)
-  :custom
-  (lsp-ui-doc-enable t)
-  (lsp-ui-doc-position 'at-point)
-  (lsp-ui-sideline-enable t)
-  (lsp-ui-sideline-show-hover t)
-  (lsp-ui-peek-enable t))
-
-(use-package zig-mode
-  :mode "\\.zig\\'"
-  :hook (zig-mode . lsp-deferred))
+(use-package zig-mode) 
 
 ;; (use-package flycheck
 ;;   :init (global-flycheck-mode))
@@ -77,7 +81,8 @@
   (setq projectile-completion-system 'default
         projectile-project-search-path '("~/projects/" "~/code/")
         projectile-enable-caching t
-        projectile-cleanup-known-projects nil)
+        projectile-cleanup-known-projects nil
+        projectile-auto-discover nil)
   :bind ("C-c p" . projectile-command-map))
 
 (use-package magit
@@ -88,7 +93,7 @@
          (text-mode . diff-hl-mode)
          (dired-mode . diff-hl-dired-mode))
   :config
-  (diff-hl-flydiff-mode)
+  ; (diff-hl-flydiff-mode)
   (with-eval-after-load 'magit
     (add-hook 'magit-post-refresh-hook
               #'diff-hl-magit-post-refresh)))
